@@ -1,0 +1,85 @@
+1]create agent
+->go to google develper console
+->create new project id
+->go to service accounts
+->keys to be json format create
+->Iam roles->owner both
+->create service for project->give owner permission both mail and project id(denied permission)
+->enable service account for google api is imp from google devloper console(denied permission) solved
+{https://console.cloud.google.com/apis/api/dialogflow.googleapis.com/metrics?project=dummy-create-agent}
+
+
+
+
+    // const projectId = process.env.NODE_PRODUCTID;
+    // const entityId = req.params.id;
+    // const displayName = req.body.displayName;
+    // const entityClient = new dialogflow.EntityTypesClient({
+    //   keyFilename: keys,
+    // });
+    // console.log(entityClient, "69");
+    // const agentPath = entityClient.projectAgentEntityTypePath(projectId);
+    // console.log(agentPath, "71");
+    // const entityPath = agentPath + "/entity/" + entityId;
+    // const entity = await entityClient.getEntityType({ name: entityPath });
+    // entity[0].displayName = displayName;
+    // const updateMask = {
+    //   paths: ["display_name"],
+    // };
+    // console.log(updateMask, "78");
+    // const updateEntityRequest = {
+    //   entity: entity[0],
+    //   updateMask: updateMask,
+    //   languageCode: "en",
+    // };
+    // console.log(updateEntityRequest, "83");
+    // const result = await entityClient.updateEntityType(updateEntityRequest);
+    // return res.send(result);
+
+
+
+  ==============>  for postman testing(http://localhost:5000/intent/createIntent)
+  {
+    "displayName": "get-name",
+    "trainingPhrasesParts":[{"text":"what is your name","entityType":"@sys.person","alias":"person"},
+    {"text":"whats name","entityType":"@sys.person","alias":"person"}],
+    "outputContextArray":[],
+    "InputContextNamesArray":[]
+}
+
+===============>for postman testing(http://localhost:5000/entity/createEntity)
+{
+    "displayName":"cars",
+    "entities":[{"value":"two-wheeler","synonyms": ["twowheeler", "two", "2"] },{"value":"four-wheeler","synonyms": ["fourwheeler", "four", "4"]}]
+}
+
+---------->
+{
+    "displayName": "meet",
+    "trainingPhrasesParts":[{"text":"let's meet","entityType":"","alias":""},
+    {"text":"meet","entityType":"","alias":""},{
+        "text":"booksession","entityType":"","alias":""
+    }],
+    "outputContextArray":[],
+    "InputContextNamesArray":["awaiting_name"]
+}
+------------>
+{
+    "displayName": "askemail",
+    "trainingPhrasesParts":[{"text":"moni","entityType":"@sys.person","alias":"person"},
+    {"text":"monali","entityType":"@sys.person","alias":"person"},{
+        "text":"pooja","entityType":"@sys.person","alias":"person"
+    }],
+    "outputContextArray":["awaiting_name","awaiting_email"],
+    "InputContextNamesArray":["awaiting_name"]
+}
+//-->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>(createIntent)
+{
+    "displayName": "outputcontextarray",
+    "trainingPhrasesParts":[{"text":"moni@gmail.com","entityType":"@sys.email","alias":"email"},
+    {"text":"monali@gmail.com","entityType":"@sys.email","alias":"email"},{
+        "text":"pooja@gmail.com","entityType":"@sys.email","alias":"email"
+    }],
+    "outputContextArray":[{"contextName":"out","contextLifespan":3},{"contextName":"In","contextLifespan":3}],
+    "InputContextNamesArray":["awaiting_name","awaiting_email"]
+}
